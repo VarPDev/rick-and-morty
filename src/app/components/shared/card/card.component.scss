@@ -1,0 +1,26 @@
+.custom-card {
+  border-radius: 0.5rem;
+  background: rgb(60, 62, 68);
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+  display: flex;
+  color: #fff;
+  overflow: hidden;
+
+  .left-side {
+    width: 40%;
+    background-size: cover;
+  }
+
+  .right-side {
+    width: 60%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+
+    div {
+      width: 100%;
+    }
+  }
+}

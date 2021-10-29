@@ -1,0 +1,14 @@
+<div class="home-container" *ngIf="{charactersResponse: characters$ | async} as subs">
+  <div class="card-container" *ngIf="!!subs.charactersResponse && !!subs.charactersResponse.characters">
+    <app-card 
+      *ngFor="let c of subs.charactersResponse.characters.results"
+      [image]="c.image"
+      [title]="c.name"
+      [subTitle]="c.alive + ' - ' + c.species"
+      [firstCustomLabel]="'Last known location:'"
+      [firstCustomValue]="c.location.name"
+      [secondCustomLabel]="'First seen in:'"
+      [secondCustomValue]="c.episode[0].name"
+    ></app-card>
+  </div>
+</div>
