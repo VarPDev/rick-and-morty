@@ -1,6 +1,13 @@
-# RickAndMorty
+# Rick And Morty
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.6.
+Current version is 12.x.x
+
+This web application use [Rick And Morty API](https://rickandmortyapi.com) to show data.
+
+## NPM packages
+
+Remember to install npm packages before running the project with `npm i` command.
 
 ## Development server
 
@@ -18,10 +25,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## NGRX
+
+In this project was used NgRx for the state manager. I know is too much for this small project but it is for illustrative and study purposes only.
