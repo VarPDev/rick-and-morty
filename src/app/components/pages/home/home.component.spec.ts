@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { charactersReducer } from 'src/app/store/reducers/rick-and-morty.reducer';
+import { CardComponent } from '../../shared/card/card.component';
 
 import { HomeComponent } from './home.component';
 
@@ -8,9 +12,12 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
-    })
-    .compileComponents();
+      imports: [
+        HttpClientModule,
+        StoreModule.forRoot({ characters: charactersReducer }),
+      ],
+      declarations: [HomeComponent, CardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
