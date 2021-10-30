@@ -154,10 +154,9 @@ a.pixel {
 
   &:hover {
     border: 1px solid transparent;
-    transition-delay: 0.8s;
     background-size: 180px;
     animation: animate $speed-fast steps(8) forwards;
-    // background: $color-purple url(https://i.postimg.cc/FzBWFtKM/pixel2.png); // 360px x 1080px
+    background: $color-purple;
   }
 }
 @keyframes animate {

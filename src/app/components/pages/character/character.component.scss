@@ -5,7 +5,7 @@
 .character-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 20px;
   padding: 20px 0;
 
@@ -37,11 +37,13 @@
     margin-top: 2rem;
     margin-bottom: 1.2rem;
     text-transform: uppercase;
+    text-align: center;
   }
 
   .status {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     .dot {
       border-radius: 50%;
@@ -63,7 +65,7 @@
   .location-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 5rem;
   }
@@ -71,7 +73,8 @@
   .episodes {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 20px;
   }
 }
