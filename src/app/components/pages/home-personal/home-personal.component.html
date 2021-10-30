@@ -16,6 +16,14 @@
       [firstCustomValue]="c.location.name"
       [secondCustomLabel]="'First seen in:'"
       [secondCustomValue]="c.episodeResponse[0].name"
+      [showDot]="true"
+      [dotColor]="
+        c.status === 'Alive'
+          ? 'green'
+          : c.status === 'unknown'
+          ? 'yellow'
+          : null
+      "
     ></app-card>
   </div>
 </div>

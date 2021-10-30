@@ -5,27 +5,28 @@
 
   <div class="right-side">
     <div class="card-title">
-      {{title}} 
+      {{ title }}
     </div>
 
     <div class="card-sub-title">
-      {{subTitle}} 
+      <div *ngIf="showDot" class="dot {{ dotColor ? dotColor : '' }}"></div>
+      {{ subTitle }}
     </div>
 
-    <div class="card-first-label">
-      {{firstCustomLabel}}
+    <div class="card-label card-first-label">
+      {{ firstCustomLabel }}
     </div>
 
     <div class="card-first-value">
-      {{firstCustomValue}}
+      {{ firstCustomValue }}
     </div>
 
-    <div class="card-second-label">
-      {{secondCustomLabel}}
+    <div class="card-label card-second-label">
+      {{ secondCustomLabel }}
     </div>
 
     <div class="card-second-value">
-      {{secondCustomValue}}
+      {{ secondCustomValue }}
     </div>
   </div>
 </div>

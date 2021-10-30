@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +22,7 @@ import { StoreModule } from '@ngrx/store';
 import { CardComponent } from './components/shared/card/card.component';
 import { PlanetComponent } from './components/shared/planet/planet.component';
 import { RickAndMortyComponent } from './components/shared/rick-and-morty/rick-and-morty.component';
+import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,13 @@ import { RickAndMortyComponent } from './components/shared/rick-and-morty/rick-a
       character: charactersReducer,
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
