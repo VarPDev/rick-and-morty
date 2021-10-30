@@ -1,7 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+$color-purple: #7a18ec;
+$color-white: #fff;
+$color-black-1: #111;
+$color-black-2: #222;
+$color-black-3: #444;
+$speed-normal: 0.5s;
+$speed-fast: 0.8s;
+
 body {
   background: rgb(36, 40, 47);
+  margin: 0%;
 }
 
 .container,
@@ -12,8 +21,8 @@ body {
 .container-xl,
 .container-xxl {
   width: 100%;
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
   margin-right: auto;
   margin-left: auto;
 }
@@ -55,5 +64,37 @@ body {
   .container-xl,
   .container-xxl {
     max-width: 1320px;
+  }
+}
+
+a.pixel {
+  position: relative;
+  width: 180px;
+  height: 60px;
+  margin: 20px;
+  line-height: 60px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: $color-white;
+  transition: $speed-normal;
+  border: 1px solid $color-purple;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid transparent;
+    transition-delay: 0.8s;
+    background-size: 180px;
+    animation: animate $speed-fast steps(8) forwards;
+    background: $color-purple url(https://i.postimg.cc/FzBWFtKM/pixel2.png); // 360px x 1080px
+  }
+}
+@keyframes animate {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: -480px;
   }
 }

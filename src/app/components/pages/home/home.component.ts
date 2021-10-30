@@ -1,8 +1,15 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
-import { Observable, forkJoin, of, zip } from 'rxjs';
+import { Observable, from, of, forkJoin } from 'rxjs';
 import { CharacterResponse } from 'src/app/models/character.vm';
-import { mergeMap } from 'rxjs/operators';
+import {
+  concatMap,
+  debounceTime,
+  map,
+  mergeMap,
+  reduce,
+  take,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -15,33 +22,120 @@ export class HomeComponent {
     this.rickAndMortyService.characters$;
 
   constructor(private readonly rickAndMortyService: RickAndMortyService) {
+    // this.getCharactersMerge();
+    this.getCharactersConcat();
+  }
+
+  getCharactersMerge(url: string = null): void {
     this.rickAndMortyService
-      .getCharacters()
+      .getCharacters(url)
       .pipe(
         mergeMap((response) => {
-          const firstEpisode = response.results.map((c) => {
-            return this.rickAndMortyService.createGetRequest(c.episode[0]);
-          });
-          return zip(forkJoin(firstEpisode), of(response));
-        })
-      )
-      .subscribe(([response, characters]): void => {
-        const newCharacters = {
-          ...characters,
-          results: [
-            ...characters.results.map((c, i) => {
+          return from(response.results).pipe(
+            // concatMap((c) => {
+            //   return forkJoin([
+            //     this.rickAndMortyService.createGetRequest(c.location.url),
+            //     this.rickAndMortyService.createGetRequest(c.origin.url),
+            //     of(c),
+            //   ]);
+            // }),
+            map((c) => {
               return {
                 ...c,
-                episode: [
-                  response[i],
-                  ...c.episode.splice(0, c.episode.length),
+                // locationResponse,
+                // originResponse,
+                episodeRequest: [
+                  ...c.episode.map((episodeUrl) => {
+                    return this.rickAndMortyService.createGetRequest(
+                      episodeUrl
+                    );
+                  }),
                 ],
               };
             }),
-          ],
-        };
-
-        this.rickAndMortyService.updateCharacters(newCharacters);
+            mergeMap((c) => {
+              return from(c.episodeRequest).pipe(
+                // Now we use concatMap as this will force RxJS to wait for each request
+                // to complete before starting the next one, ensuring we have all the
+                // data needed for each episode
+                mergeMap((e) => e),
+                // We then need to collect each of these API responses and map them back into
+                // a single array of episodes
+                reduce((episodes, episode) => [...episodes, episode], []),
+                // Finally we then map the character data and the episode data into one precise
+                // object that we care about
+                map((episodes) => ({
+                  ...c,
+                  episodeResponse: episodes,
+                }))
+              );
+            }),
+            reduce((characters, c) => [...characters, c], []),
+            map((characters) => ({
+              ...response,
+              results: characters,
+            }))
+          );
+        })
+      )
+      .subscribe((response): void => {
+        console.log(response);
+        this.rickAndMortyService.updateCharacters(response);
       });
+  }
+
+  getCharactersConcat(url: string = null): void {
+    this.rickAndMortyService
+      .getCharacters(url)
+      .pipe(
+        mergeMap((response) => {
+          return from(response.results).pipe(
+            map((c) => {
+              return {
+                ...c,
+                episodeRequest: [
+                  ...c.episode.map((episodeUrl) => {
+                    return this.rickAndMortyService.createGetRequest(
+                      episodeUrl
+                    );
+                  }),
+                ],
+              };
+            }),
+            concatMap((c) => {
+              return from(c.episodeRequest).pipe(
+                // Now we use concatMap as this will force RxJS to wait for each request
+                // to complete before starting the next one, ensuring we have all the
+                // data needed for each episode
+                concatMap((e) => e),
+                // We then need to collect each of these API responses and map them back into
+                // a single array of episodes
+                reduce((episodes, episode) => [...episodes, episode], []),
+                // Finally we then map the character data and the episode data into one precise
+                // object that we care about
+                map((episodes) => ({
+                  ...c,
+                  episodeResponse: episodes,
+                }))
+              );
+            }),
+            reduce(
+              (characters, characterItem) => [...characters, characterItem],
+              []
+            ),
+            map((characters) => ({
+              ...response,
+              results: characters,
+            }))
+          );
+        })
+      )
+      .subscribe((response): void => {
+        this.rickAndMortyService.updateCharacters(response);
+      });
+  }
+
+  onChangePage(next: boolean, info: any): void {
+    this.getCharactersMerge(!!next ? info.next : info.prev);
   }
 }

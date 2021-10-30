@@ -1,0 +1,56 @@
+<div class="character-container" *ngIf="{ c: character$ | async } as subs">
+  <div class="container">
+    <ng-container
+      *ngIf="!!subs.c && !!subs.c.character && !!subs.c.character.id"
+    >
+      <div class="tools">
+        <a class="pixel" (click)="onGoBack()">Go back</a>
+      </div>
+      <ng-conatiner *ngIf="subs.c.character as c">
+        <div class="character-header">
+          <div class="left-side">
+            <img [src]="c.image" />
+          </div>
+          <div class="right-side">
+            {{ c.name }}
+          </div>
+        </div>
+
+        <div class="desc-content">
+          <div class="status-content">
+            <div class="title">Status</div>
+            <div class="status">
+              <div
+                class="dot"
+                [ngClass]="{
+                  alive: c.status === 'Alive',
+                  unknown: c.status === 'unknown'
+                }"
+              ></div>
+              {{ c.status + " - " + c.species }}
+            </div>
+          </div>
+
+          <div class="location-container">
+            <div class="origin">
+              <div class="title">Origin</div>
+              <app-planet [planet]="c.originResponse"></app-planet>
+            </div>
+
+            <div class="location">
+              <div class="title">Location</div>
+              <app-planet [planet]="c.locationResponse"></app-planet>
+            </div>
+          </div>
+
+          <div class="episodes">
+            <div class="title">Chapters {{ c.name }} is featured on.</div>
+            <div class="episode" *ngFor="let e of c.episodeResponse">
+              {{ e.name }}
+            </div>
+          </div>
+        </div>
+      </ng-conatiner>
+    </ng-container>
+  </div>
+</div>

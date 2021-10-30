@@ -8,6 +8,7 @@
   >
     <app-card
       *ngFor="let c of subs.charactersResponse.characters.results"
+      (click)="onOpenCharacter(c)"
       [image]="c.image"
       [title]="c.name"
       [subTitle]="c.status + ' - ' + c.species"
