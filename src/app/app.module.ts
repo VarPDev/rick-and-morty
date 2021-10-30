@@ -21,6 +21,7 @@ import { charactersReducer } from './store/reducers/rick-and-morty.reducer';
 import { StoreModule } from '@ngrx/store';
 import { CardComponent } from './components/shared/card/card.component';
 import { PlanetComponent } from './components/shared/planet/planet.component';
+import { RickAndMortyComponent } from './components/shared/rick-and-morty/rick-and-morty.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PlanetComponent } from './components/shared/planet/planet.component';
     HomePersonalComponent,
     CharacterComponent,
     PlanetComponent,
+    RickAndMortyComponent,
   ],
   imports: [
     BrowserModule,
