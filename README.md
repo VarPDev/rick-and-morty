@@ -32,3 +32,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## NGRX
 
 In this project was used NgRx for the state manager. I know is too much for this small project but it is for illustrative and study purposes only.
+
+## DEMO
+
+For view demo [click here](https://rick-and-morty-pako.herokuapp.com)
