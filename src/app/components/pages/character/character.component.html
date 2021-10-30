@@ -18,7 +18,7 @@
 
         <div class="desc-content">
           <div class="status-content">
-            <div class="title">Status</div>
+            <div class="title">Information</div>
             <div class="status">
               <div
                 class="dot"
@@ -27,8 +27,10 @@
                   unknown: c.status === 'unknown'
                 }"
               ></div>
-              {{ c.status + " - " + c.species }}
+              {{ c.status }}
             </div>
+            <div class="information-item">Gender: {{ c.gender }}</div>
+            <div class="information-item">Species: {{ c.species }}</div>
           </div>
 
           <div class="location-container">

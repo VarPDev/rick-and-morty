@@ -1,0 +1,15 @@
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  a {
+    cursor: pointer;
+
+    &.disable {
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+}

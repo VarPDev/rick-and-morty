@@ -1,0 +1,16 @@
+<div class="paginator">
+  <a
+    class="pixel"
+    (click)="onChangePage(false)"
+    [ngClass]="{ disable: firstPage }"
+  >
+    Prev
+  </a>
+  <a
+    class="pixel"
+    (click)="onChangePage(true)"
+    [ngClass]="{ disable: lastPage }"
+  >
+    Next
+  </a>
+</div>

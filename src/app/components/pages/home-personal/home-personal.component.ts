@@ -19,8 +19,16 @@ export class HomePersonalComponent {
     private readonly rickAndMortyService: RickAndMortyService,
     private readonly router: Router
   ) {
+    this.getCharacters();
+  }
+
+  onOpenCharacter(character: any): void {
+    this.router.navigate([`/character/${character.id}`]);
+  }
+
+  getCharacters(url: string = null): void {
     this.rickAndMortyService
-      .getCharacters()
+      .getCharacters(url)
       .pipe(
         mergeMap((response) => {
           const firstEpisode = response.results.map((c) => {
@@ -50,7 +58,8 @@ export class HomePersonalComponent {
       });
   }
 
-  onOpenCharacter(character: any): void {
-    this.router.navigate([`/character/${character.id}`]);
+  onChangePage(next: boolean, info: any): void {
+    this.getCharacters(!!next ? info.next : info.prev);
+    window.scroll(0, 0);
   }
 }

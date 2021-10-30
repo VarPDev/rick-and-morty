@@ -2,27 +2,42 @@
   class="home-container"
   *ngIf="{ charactersResponse: characters$ | async } as subs"
 >
-  <div
-    class="card-container"
-    *ngIf="!!subs.charactersResponse && !!subs.charactersResponse.characters"
+  <ng-container
+    *ngIf="
+      !!subs.charactersResponse &&
+      !!subs.charactersResponse.characters &&
+      !!subs.charactersResponse.characters.info
+    "
   >
-    <app-card
-      *ngFor="let c of subs.charactersResponse.characters.results"
-      [image]="c.image"
-      [title]="c.name"
-      [subTitle]="c.status + ' - ' + c.species"
-      [firstCustomLabel]="'Last known location:'"
-      [firstCustomValue]="c.location.name"
-      [secondCustomLabel]="'First seen in:'"
-      [secondCustomValue]="c.episodeResponse[0].name"
-      [showDot]="true"
-      [dotColor]="
-        c.status === 'Alive'
-          ? 'green'
-          : c.status === 'unknown'
-          ? 'yellow'
-          : null
-      "
-    ></app-card>
-  </div>
+    <div class="card-container">
+      <app-card
+        *ngFor="let c of subs.charactersResponse.characters.results"
+        [image]="c.image"
+        [title]="c.name"
+        [subTitle]="c.status + ' - ' + c.species"
+        [firstCustomLabel]="'Last known location:'"
+        [firstCustomValue]="c.location.name"
+        [secondCustomLabel]="'First seen in:'"
+        [secondCustomValue]="c.episodeResponse[0].name"
+        [showDot]="true"
+        [dotColor]="
+          c.status === 'Alive'
+            ? 'green'
+            : c.status === 'unknown'
+            ? 'yellow'
+            : null
+        "
+      ></app-card>
+    </div>
+
+    <div class="paginator-container">
+      <app-paginator
+        [firstPage]="!subs.charactersResponse.characters.info.prev"
+        [lastPage]="!subs.charactersResponse.characters.info.next"
+        (changePage)="
+          onChangePage($event, subs.charactersResponse.characters.info)
+        "
+      ></app-paginator>
+    </div>
+  </ng-container>
 </div>
