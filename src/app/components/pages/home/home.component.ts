@@ -2,14 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 import { Observable, from, of, forkJoin } from 'rxjs';
 import { CharacterResponse } from 'src/app/models/character.vm';
-import {
-  concatMap,
-  debounceTime,
-  map,
-  mergeMap,
-  reduce,
-  take,
-} from 'rxjs/operators';
+import { concatMap, map, mergeMap, reduce } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +15,8 @@ export class HomeComponent {
     this.rickAndMortyService.characters$;
 
   constructor(private readonly rickAndMortyService: RickAndMortyService) {
-    // this.getCharactersMerge();
-    this.getCharactersConcat();
+    this.getCharactersMerge();
+    // this.getCharactersConcat();
   }
 
   getCharactersMerge(url: string = null): void {
@@ -32,18 +25,18 @@ export class HomeComponent {
       .pipe(
         mergeMap((response) => {
           return from(response.results).pipe(
-            // concatMap((c) => {
-            //   return forkJoin([
-            //     this.rickAndMortyService.createGetRequest(c.location.url),
-            //     this.rickAndMortyService.createGetRequest(c.origin.url),
-            //     of(c),
-            //   ]);
-            // }),
-            map((c) => {
+            mergeMap((c) => {
+              return forkJoin([
+                this.rickAndMortyService.createGetRequest(c.location.url),
+                this.rickAndMortyService.createGetRequest(c.origin.url),
+                of(c),
+              ]);
+            }),
+            map(([locationResponse, originResponse, c]) => {
               return {
                 ...c,
-                // locationResponse,
-                // originResponse,
+                locationResponse,
+                originResponse,
                 episodeRequest: [
                   ...c.episode.map((episodeUrl) => {
                     return this.rickAndMortyService.createGetRequest(

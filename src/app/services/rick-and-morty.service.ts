@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Character, CharacterResponse } from 'src/app/models/character.vm';
 import {
@@ -49,7 +49,7 @@ export class RickAndMortyService {
   }
 
   createGetRequest(url: string): Observable<any> {
-    return this.httpClient.get<any>(url, this.httpOptions);
+    return !!url ? this.httpClient.get<any>(url, this.httpOptions) : of(null);
   }
 
   /*
