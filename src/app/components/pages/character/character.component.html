@@ -1,5 +1,5 @@
 <div class="character-container" *ngIf="{ c: character$ | async } as subs">
-  <div class="container">
+  <div class="char-container">
     <ng-container
       *ngIf="!!subs.c && !!subs.c.character && !!subs.c.character.id"
     >
@@ -46,7 +46,7 @@
           </div>
 
           <div class="episodes">
-            <div class="title">Chapters {{ c.name }} is featured on.</div>
+            <div class="title">Chapters {{ c.name }} is featured on</div>
             <div class="episode" *ngFor="let e of c.episodeResponse">
               {{ e.name }}
             </div>

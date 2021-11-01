@@ -1,12 +1,15 @@
 // Install express server
 const express = require('express');
 const path = require('path');
-// const helmet = require("helmet");
+const helmet = require("helmet");
 
 const app = express();
 
-// at the moment with helmet I can't use rick and morty api
-// app.use(helmet());
+app.use(helmet(
+  {
+    contentSecurityPolicy: false
+  }
+));
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/rick-and-morty'));

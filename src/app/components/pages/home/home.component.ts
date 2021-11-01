@@ -20,6 +20,7 @@ export class HomeComponent {
   }
 
   getCharactersMerge(url: string = null): void {
+    this.rickAndMortyService.updateCharacters(null);
     this.rickAndMortyService
       .getCharacters(url)
       .pipe(
@@ -78,6 +79,7 @@ export class HomeComponent {
   }
 
   getCharactersConcat(url: string = null): void {
+    this.rickAndMortyService.updateCharacters(null);
     this.rickAndMortyService
       .getCharacters(url)
       .pipe(
@@ -130,5 +132,6 @@ export class HomeComponent {
 
   onChangePage(next: boolean, info: any): void {
     this.getCharactersMerge(!!next ? info.next : info.prev);
+    window.scroll(0, 0);
   }
 }

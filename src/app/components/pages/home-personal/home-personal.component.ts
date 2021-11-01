@@ -27,6 +27,7 @@ export class HomePersonalComponent {
   }
 
   getCharacters(url: string = null): void {
+    this.rickAndMortyService.updateCharacters(null);
     this.rickAndMortyService
       .getCharacters(url)
       .pipe(
