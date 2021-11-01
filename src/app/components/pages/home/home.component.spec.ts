@@ -5,6 +5,7 @@ import { charactersReducer } from 'src/app/store/reducers/rick-and-morty.reducer
 import { CardComponent } from '../../shared/card/card.component';
 import { PaginatorComponent } from '../../shared/paginator/paginator.component';
 import { RickAndMortyComponent } from '../../shared/rick-and-morty/rick-and-morty.component';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 
 import { HomeComponent } from './home.component';
 
@@ -23,6 +24,7 @@ describe('HomeComponent', () => {
         CardComponent,
         RickAndMortyComponent,
         PaginatorComponent,
+        SpinnerComponent,
       ],
     }).compileComponents();
   });

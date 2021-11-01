@@ -5,8 +5,9 @@
   <ng-container
     *ngIf="
       !!subs.charactersResponse &&
-      !!subs.charactersResponse.characters &&
-      !!subs.charactersResponse.characters.info
+        !!subs.charactersResponse.characters &&
+        !!subs.charactersResponse.characters.info;
+      else spinner
     "
   >
     <div class="card-container">
@@ -40,4 +41,10 @@
       ></app-paginator>
     </div>
   </ng-container>
+
+  <ng-template #spinner>
+    <div class="spinner-container">
+      <app-spinner></app-spinner>
+    </div>
+  </ng-template>
 </div>

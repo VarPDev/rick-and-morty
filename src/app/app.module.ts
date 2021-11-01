@@ -26,6 +26,7 @@ import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 // ngrx
 import { StoreModule } from '@ngrx/store';
 import { CardComponent } from './components/shared/card/card.component';
+import { SpinnerComponent } from './components/shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CardComponent } from './components/shared/card/card.component';
     PlanetComponent,
     RickAndMortyComponent,
     PaginatorComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

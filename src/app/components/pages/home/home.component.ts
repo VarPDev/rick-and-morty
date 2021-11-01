@@ -2,7 +2,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 import { Observable, from, of, forkJoin } from 'rxjs';
 import { CharacterResponse } from 'src/app/models/character.vm';
-import { concatMap, map, mergeMap, reduce } from 'rxjs/operators';
+import { concatMap, delay, map, mergeMap, reduce } from 'rxjs/operators';
+import { rateLimit } from 'src/app/operators/rate-limit.operator';
 
 @Component({
   selector: 'app-home',
@@ -26,18 +27,12 @@ export class HomeComponent {
       .pipe(
         mergeMap((response) => {
           return from(response.results).pipe(
-            mergeMap((c) => {
-              return forkJoin([
-                this.rickAndMortyService.createGetRequest(c.location.url),
-                this.rickAndMortyService.createGetRequest(c.origin.url),
-                of(c),
-              ]);
-            }),
-            map(([locationResponse, originResponse, c]) => {
+            // ratelimit is a custom operator that we can define how many requests can occur over a given time period
+            // I used this to avoid "too many request" error
+            rateLimit(1, 700),
+            map((c) => {
               return {
                 ...c,
-                locationResponse,
-                originResponse,
                 episodeRequest: [
                   ...c.episode.map((episodeUrl) => {
                     return this.rickAndMortyService.createGetRequest(
@@ -48,21 +43,20 @@ export class HomeComponent {
               };
             }),
             mergeMap((c) => {
-              return from(c.episodeRequest).pipe(
-                // Now we use concatMap as this will force RxJS to wait for each request
-                // to complete before starting the next one, ensuring we have all the
-                // data needed for each episode
-                mergeMap((e) => e),
-                // We then need to collect each of these API responses and map them back into
-                // a single array of episodes
-                reduce((episodes, episode) => [...episodes, episode], []),
-                // Finally we then map the character data and the episode data into one precise
-                // object that we care about
-                map((episodes) => ({
-                  ...c,
-                  episodeResponse: episodes,
-                }))
-              );
+              return forkJoin([
+                this.rickAndMortyService.createGetRequest(c.location.url),
+                this.rickAndMortyService.createGetRequest(c.origin.url),
+                forkJoin(c.episodeRequest).pipe(rateLimit(15, 200)),
+                of(c),
+              ]);
+            }),
+            map(([locationResponse, originResponse, episodes, c]) => {
+              return {
+                ...c,
+                locationResponse,
+                originResponse,
+                episodeResponse: episodes,
+              };
             }),
             reduce((characters, c) => [...characters, c], []),
             map((characters) => ({
