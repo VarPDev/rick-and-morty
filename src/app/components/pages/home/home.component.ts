@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 import { Observable, from, of, forkJoin } from 'rxjs';
 import { CharacterResponse } from 'src/app/models/character.vm';
-import { concatMap, delay, map, mergeMap, reduce } from 'rxjs/operators';
+import { concatMap, map, mergeMap, reduce } from 'rxjs/operators';
 import { rateLimit } from 'src/app/operators/rate-limit.operator';
 
 @Component({
@@ -29,7 +29,7 @@ export class HomeComponent {
           return from(response.results).pipe(
             // ratelimit is a custom operator that we can define how many requests can occur over a given time period
             // I used this to avoid "too many request" error
-            rateLimit(1, 600),
+            rateLimit(1, 700),
             map((c) => {
               return {
                 ...c,
@@ -42,11 +42,12 @@ export class HomeComponent {
                 ],
               };
             }),
+
             mergeMap((c) => {
               return forkJoin([
                 this.rickAndMortyService.createGetRequest(c.location.url),
                 this.rickAndMortyService.createGetRequest(c.origin.url),
-                forkJoin(c.episodeRequest).pipe(rateLimit(15, 300)),
+                forkJoin(c.episodeRequest), // .pipe(rateLimit(15, 300))
                 of(c),
               ]);
             }),
