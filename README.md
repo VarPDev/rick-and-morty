@@ -36,3 +36,7 @@ In this project was used NgRx for the state manager. I know is too much for this
 ## DEMO
 
 For view demo [click here](https://rick-and-morty-pako.herokuapp.com)
+
+## HANDLE ERROR
+
+I used a http interceptor to manage http request error. For the moment I show a simple console log with error.

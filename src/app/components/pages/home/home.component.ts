@@ -73,7 +73,6 @@ export class HomeComponent {
         })
       )
       .subscribe((response): void => {
-        console.log(response);
         this.rickAndMortyService.updateCharacters(response);
       });
   }

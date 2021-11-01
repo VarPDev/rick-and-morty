@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RickAndMortyComponent } from '../rick-and-morty/rick-and-morty.component';
 
 import { FooterComponent } from './footer.component';
 
@@ -8,9 +9,8 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
-    })
-    .compileComponents();
+      declarations: [FooterComponent, RickAndMortyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

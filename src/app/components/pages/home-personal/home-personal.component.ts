@@ -23,7 +23,7 @@ export class HomePersonalComponent {
   }
 
   onOpenCharacter(character: any): void {
-    this.router.navigate([`/character/${character.id}`]);
+    this.router.navigate(['/character', character.id]);
   }
 
   getCharacters(url: string = null): void {

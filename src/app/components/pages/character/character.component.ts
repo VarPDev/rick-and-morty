@@ -63,7 +63,6 @@ export class CharacterComponent {
         })
       )
       .subscribe((response) => {
-        console.log(response);
         this.rickAndMortyService.updateCharacter(response);
       });
   }

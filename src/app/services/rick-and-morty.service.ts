@@ -31,7 +31,6 @@ export class RickAndMortyService {
   ) {
     this.characters$ = store.pipe(select('characters'));
     this.character$ = store.pipe(select('character'));
-    console.log(this.character$);
   }
 
   getCharacters(url: string = null): Observable<CharacterResponse> {
