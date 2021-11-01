@@ -29,7 +29,7 @@ export class HomeComponent {
           return from(response.results).pipe(
             // ratelimit is a custom operator that we can define how many requests can occur over a given time period
             // I used this to avoid "too many request" error
-            rateLimit(1, 700),
+            rateLimit(1, 600),
             map((c) => {
               return {
                 ...c,
@@ -46,7 +46,7 @@ export class HomeComponent {
               return forkJoin([
                 this.rickAndMortyService.createGetRequest(c.location.url),
                 this.rickAndMortyService.createGetRequest(c.origin.url),
-                forkJoin(c.episodeRequest).pipe(rateLimit(15, 200)),
+                forkJoin(c.episodeRequest).pipe(rateLimit(15, 300)),
                 of(c),
               ]);
             }),
