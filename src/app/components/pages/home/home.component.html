@@ -11,7 +11,11 @@
     "
   >
     <div class="card-container">
-      <app-card
+      <app-character-detail
+        *ngFor="let c of subs.charactersResponse.characters.results"
+        [character]="c"
+      ></app-character-detail>
+      <!-- <app-card
         *ngFor="let c of subs.charactersResponse.characters.results"
         [image]="c.image"
         [title]="c.name"
@@ -28,7 +32,7 @@
             ? 'yellow'
             : null
         "
-      ></app-card>
+      ></app-card> -->
     </div>
 
     <div class="paginator-container">

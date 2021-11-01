@@ -27,6 +27,7 @@ import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { CardComponent } from './components/shared/card/card.component';
 import { SpinnerComponent } from './components/shared/spinner/spinner.component';
+import { CharacterDetailComponent } from './components/shared/character-detail/character-detail.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SpinnerComponent } from './components/shared/spinner/spinner.component'
     RickAndMortyComponent,
     PaginatorComponent,
     SpinnerComponent,
+    CharacterDetailComponent,
   ],
   imports: [
     BrowserModule,
