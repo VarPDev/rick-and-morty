@@ -5,9 +5,10 @@ Current version is 12.x.x
 
 This web application use [Rick And Morty API](https://rickandmortyapi.com) to show data.
 
-## NPM packages
+## Quick start
 
-Remember to install npm packages before running the project with `npm i` command.
+Install npm packages with `npm i` command.
+Use `npm start` command to start a project on `http://localhost:80800/`
 
 ## Development server
 
