@@ -1,7 +1,9 @@
+// IMPORTANT: don't use this component, it is for demonstration purposes only
+
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 import { Observable, from, of, forkJoin } from 'rxjs';
-import { CharacterResponse } from 'src/app/models/character.vm';
+import { CharacterResponse, Info } from 'src/app/models/character.vm';
 import { concatMap, map, mergeMap, reduce } from 'rxjs/operators';
 import { rateLimit } from 'src/app/operators/rate-limit.operator';
 
@@ -16,10 +18,12 @@ export class HomeComponent {
     this.rickAndMortyService.characters$;
 
   constructor(private readonly rickAndMortyService: RickAndMortyService) {
+    // Use only one of these methods
     this.getCharactersMerge();
     // this.getCharactersConcat();
   }
 
+  // this method is used to get characters and other information simultaneously, but with a queue to avoid to many request error
   getCharactersMerge(url: string = null): void {
     this.rickAndMortyService.updateCharacters(null);
     this.rickAndMortyService
@@ -72,6 +76,7 @@ export class HomeComponent {
       });
   }
 
+  // this method is used to get characters and other information one after the other
   getCharactersConcat(url: string = null): void {
     this.rickAndMortyService.updateCharacters(null);
     this.rickAndMortyService
@@ -124,7 +129,7 @@ export class HomeComponent {
       });
   }
 
-  onChangePage(next: boolean, info: any): void {
+  onChangePage(next: boolean, info: Info): void {
     this.getCharactersMerge(!!next ? info.next : info.prev);
     window.scroll(0, 0);
   }

@@ -1,7 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 import { Observable, forkJoin, of, zip } from 'rxjs';
-import { CharacterResponse } from 'src/app/models/character.vm';
+import {
+  Character,
+  CharacterResponse,
+  Info,
+} from 'src/app/models/character.vm';
 import { map, mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -22,10 +26,11 @@ export class HomePersonalComponent {
     this.getCharacters();
   }
 
-  onOpenCharacter(character: any): void {
+  onOpenCharacter(character: Character): void {
     this.router.navigate(['/character', character.id]);
   }
 
+  // this method get characters and do requests to have the first episode of a character
   getCharacters(url: string = null): void {
     this.rickAndMortyService.updateCharacters(null);
     this.rickAndMortyService
@@ -59,7 +64,7 @@ export class HomePersonalComponent {
       });
   }
 
-  onChangePage(next: boolean, info: any): void {
+  onChangePage(next: boolean, info: Info): void {
     this.getCharacters(!!next ? info.next : info.prev);
     window.scroll(0, 0);
   }

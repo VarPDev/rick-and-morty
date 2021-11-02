@@ -6,7 +6,7 @@ export class CharacterResponse {
   results: Array<Character> = null;
 }
 
-class Info {
+export class Info {
   count: number = null;
   pages: number = null;
   next: string = null;

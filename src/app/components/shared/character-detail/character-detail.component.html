@@ -1,45 +1,47 @@
-<div class="character-header">
-  <div class="left-side">
-    <img [src]="character.image" />
-  </div>
-  <div class="right-side">
-    {{ character.name }}
-  </div>
-</div>
-
-<div class="desc-content">
-  <div class="status-content">
-    <div class="title">Information</div>
-    <div class="status">
-      <div
-        class="dot"
-        [ngClass]="{
-          alive: character.status === 'Alive',
-          unknown: character.status === 'unknown'
-        }"
-      ></div>
-      {{ character.status }}
+<ng-container *ngIf="!!character">
+  <div class="character-header">
+    <div class="left-side">
+      <img [src]="character.image" />
     </div>
-    <div class="information-item">Gender: {{ character.gender }}</div>
-    <div class="information-item">Species: {{ character.species }}</div>
-  </div>
-
-  <div class="location-container">
-    <div class="origin">
-      <div class="title">Origin</div>
-      <app-planet [planet]="character.originResponse"></app-planet>
-    </div>
-
-    <div class="location">
-      <div class="title">Location</div>
-      <app-planet [planet]="character.locationResponse"></app-planet>
+    <div class="right-side">
+      {{ character.name }}
     </div>
   </div>
 
-  <div class="episodes">
-    <div class="title">Chapters {{ character.name }} is featured on</div>
-    <div class="episode" *ngFor="let e of character.episodeResponse">
-      {{ e.name }}
+  <div class="desc-content">
+    <div class="status-content">
+      <div class="title">Information</div>
+      <div class="status">
+        <div
+          class="dot"
+          [ngClass]="{
+            alive: character.status === 'Alive',
+            unknown: character.status === 'unknown'
+          }"
+        ></div>
+        {{ character.status }}
+      </div>
+      <div class="information-item">Gender: {{ character.gender }}</div>
+      <div class="information-item">Species: {{ character.species }}</div>
+    </div>
+
+    <div class="location-container">
+      <div class="origin">
+        <div class="title">Origin</div>
+        <app-planet [planet]="character.originResponse"></app-planet>
+      </div>
+
+      <div class="location">
+        <div class="title">Location</div>
+        <app-planet [planet]="character.locationResponse"></app-planet>
+      </div>
+    </div>
+
+    <div class="episodes">
+      <div class="title">Chapters {{ character.name }} is featured on</div>
+      <div class="episode" *ngFor="let e of character.episodeResponse">
+        {{ e.name }}
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
