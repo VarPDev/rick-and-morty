@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-card',
@@ -16,4 +17,6 @@ export class CardComponent {
   @Input() readonly secondCustomValue: string;
   @Input() readonly showDot: boolean;
   @Input() readonly dotColor: string;
+
+  hosting: string = environment.hosting
 }
