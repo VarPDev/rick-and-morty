@@ -17,6 +17,4 @@ export class CardComponent {
   @Input() readonly secondCustomValue: string;
   @Input() readonly showDot: boolean;
   @Input() readonly dotColor: string;
-
-  hosting: string = environment.hosting
 }
