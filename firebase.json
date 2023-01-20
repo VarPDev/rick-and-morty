@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "rick-and-morty-e",
+    "public": "dist/rick-and-morty",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
