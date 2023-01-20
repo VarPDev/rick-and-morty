@@ -1,0 +1,13 @@
+[
+  {
+    "origin": [
+      "http://localhost:4200",
+      "https://rick-and-morty-e.web.app",
+      "https://rick-and-morty-e.firebaseapp.com"
+    ],
+    "method": [
+      "GET"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]
